@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<style>
+			section {
+				margin: 30px;
+			}
+		</style>
+	</head>
+
+	<body>
+	
+	<section>
+		Status: <label id='status'></label>
+	</section>
+
+	<section>
+		<video hidden autoplay id='webcam'></video>
+		Upload: <canvas id='uploadCanvas'></canvas>
+		Webcam: <canvas id='webcamCanvas'></canvas>
+	</section>
+	
+	<section>
+		<input type='file' id='file'/>
+		<button id='webcamOnButton'>Webcam on</button>
+		<button id='webcamOffButton'>Webcam off</button>
+		<button id='scoreButton'>Score</button>
+		<br>
+		<h1 font-size=20>
+			잘생김 점수: <label id='scoreLabel'></label>
+		</h1>
+	</section>
+
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+	<script src="index.js"></script>
+	</body>
+</html>
