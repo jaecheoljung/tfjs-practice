@@ -1,0 +1,60 @@
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@200&display=swap" rel="stylesheet">
+	
+	<style>
+		:root {
+			--border-color: none;
+		}
+		body {
+			width: 80%;
+			margin: 0 auto;
+			font-family: 'MuseoModerno', cursive;
+			text-align: center;
+		}
+		section {
+			margin: 10;
+			padding: 10;
+			width: 700;
+			border: solid gray;
+		}
+		button {
+			background-color: lightblue;
+			border-radius: 12px;
+			border: none;
+			color: white;
+		}
+		#canvas {
+			border: solid var(--border-color);
+		}
+	</style>
+</head>
+
+<body>
+	<section>
+		<h1>&ltObject Detection></h1>
+		Status: <label id="status"></label>
+	</section>
+	
+	<section>
+		<input type='file' id='file' disabled \>
+		<button id='on' disabled >cam on</button>
+		<button id='off' disabled >cam off</button>
+	</section>
+	<section>
+		<canvas id="canvas"></canvas>
+	</section>
+
+	<section style="height: 200px">
+		* Found objects *<br>
+		<label id="founds"></label>
+	</section>
+
+	<!-- Load TensorFlow.js. This is required to use coco-ssd model. -->
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+	<!-- Load the coco-ssd model. -->
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"> </script>
+
+	<script src="index.js"></script>
+</body>
+</html>
