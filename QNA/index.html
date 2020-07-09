@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <style>
+            #qna {
+                width: 85%;
+                margin: 0 auto;
+            }
+            #passage {
+                width: 80%;
+                height: 60%;
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                font-size: large;
+            }
+            #question {
+                width: 80%;
+                height: 10%;
+            }
+        </style>
+    </head>
+    <body>
+        <section id="qna">
+            <h1> Q&A Demo </h1>
+            <p>Write some informative passages</p>
+            <textarea id="passage">?</textarea>
+            <p>Write a question, which answer can be inferred from the passage</p>
+            <input type="text" id="question" disabled/>
+            <p>Possible answers: </p>
+            <label id="answer">Wait, BERT is loading</label>     
+        </section>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/qna"> </script>
+
+        <script>
+        
+        const p = document.getElementById("passage");
+        const q = document.getElementById("question");
+        p.value = `Putting fathers' mental health into perspective
+Becoming a father is an extremely important life event for a man. Fathers can experience new emotions, feelings, and changes initiated by the transition into parenthood. Some evidence shows that around 10% of new fathers experience depression, and yet this is still little understanding about this let alone appropriate support. Most new mothers perceive the father to be a crucial source of support. Poor paternal support can exacerbate maternal mental health problems. However, many fathers feel alienated and have little knowledge about how they can support their partner at this time.
+
+These days, around 98% of fathers are present at the birth of their child. If that birth becomes traumatic, the father witnessing these events can also become traumatized. While research exists about the impact of birth trauma on mothers, little is known about the impact on fathers. Some evidence shows that fathers encountered "a roller coaster of emotions, characterized by isolation and abandonment" when witnessing their partners' birth trauma. Previous studies have shown that fathers get little information and support in the event of a traumatic birth.
+
+Fathers' mental health matters for many reasons; we need to understand more about how we can help dads. My recent research has sought to explore that in more depth, while my campaigns urge better support for fathers. It's not about support for fathers instead of mothers; it's as well as. If we help fathers, we help mothers. If we help them both, we also help their children.`
+
+        q.value = "How many fathers are present at the birth of their child these days?";
+        
+        let model = undefined;
+        qna.load().then(m => {
+            model = m;
+            q.disabled = false;
+            console.log(model);
+        });
+        
+        q.onkeydown = (e) => {
+            console.log(e.which);
+            if (e.which == 13){
+                const a = document.getElementById("answer");
+                model.findAnswers(q.value, p.value).then(answers => {
+                    console.log(answers);
+                    a.innerText = "";
+                    answers.forEach((answer, i) => {
+                        a.innerText += `${i+1}. ${answer['text']} \n\n`;
+                    })
+                    if (answers.length == 0) a.innerText = "Well, I don't know";
+                });
+            };
+        };
+
+        </script>
+    </body>
+</html>
